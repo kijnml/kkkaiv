@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>KTV 利润 & 回本周期计算器</title>
+    <style>
+        body { font-family: Arial, Helvetica, sans-serif; line-height: 1.6; padding: 20px; max-width: 800px; margin: auto; color: #333; }
+        h1, h2 { text-align: center; }
+        label { display: block; margin-top: 12px; }
+        input[type=number] { width: 100%; padding: 6px; margin-top: 4px; border: 1px solid #ccc; border-radius: 4px; }
+        button { display: block; width: 100%; padding: 10px; margin-top: 20px; background: #007bff; color: #fff; border: none; border-radius: 4px; cursor: pointer; }
+        button:hover { background: #0056b3; }
+        .result { margin-top: 20px; padding: 15px; border-radius: 4px; background: #f0f8ff; }
+        .result p { margin: 6px 0; }
+        .highlight { font-weight: bold; color: #d9534f; }
+    </style>
+</head>
+<body>
+    <h1>KTV 利润 & 回本周期计算器</h1>
+
+    <!-- 输入区 -->
+    <h2>每月成本</h2>
+    <label>租金：<input type="number" id="rent" min="0" value="0"></label>
+    <label>工资：<input type="number" id="wages" min="0" value="0"></label>
+    <label>水电：<input type="number" id="utilities" min="0" value="0"></label>
+    <label>合计：<span id="totalCost">0</span></label>
+
+    <h2>酒水</h2>
+    <label>喜力 进价：<input type="number" id="xiLiPurchase" min="0" value="0"></label>
+    <label>喜力 售价：<input type="number" id="xiLiSell" min="0" value="0"></label>
+    <label>喜力 利润：<span id="xiLiProfit">0</span></label>
+    <label>百威 进价：<input type="number" id="baiWeiPurchase" min="0" value="0"></label>
+    <label>百威 售价：<input type="number" id="baiWeiSell" min="0" value="0"></label>
+    <label>百威 利润：<span id="baiWeiProfit">0</span></label>
+    <label>科罗娜 进价：<input type="number" id="keLuoNaPurchase" min="0" value="0"></label>
+    <label>科罗娜 售价：<input type="number" id="keLuoNaSell" min="0" value="0"></label>
+    <label>科罗娜 利润：<span id="keLuoNaProfit">0</span></label>
+    <label>乌苏 进价：<input type="number" id="wuSuPurchase" min="0" value="0"></label>
+    <label>乌苏 售价：<input type="number" id="wuSuSell" min="0" value="0"></label>
+    <label>乌苏 利润：<span id="wuSuProfit">0</span></label>
+    <label>雪津 进价：<input type="number" id="xueJinPurchase" min="0" value="0"></label>
+    <label>雪津 售价：<input type="number" id="xueJinSell" min="0" value="0"></label>
+    <label>雪津 利润：<span id="xueJinProfit">0</span></label>
+    <label>饮料 进价：<input type="number" id="drinkPurchase" min="0" value="0"></label>
+    <label>饮料 售价：<input type="number" id="drinkSell" min="0" value="0"></label>
+    <label>饮料 利润：<span id="drinkProfit">0</span></label>
+    <label>总利润：<span id="totalProfit">0</span></label>
+
+    <button onclick="calculate()">计算</button>
+
+    <!-- 结果区 -->
+    <div class="result" id="result">
+        <p>填写上方数据后点击「计算」即可查看结果。</p>
+    </div>
+
+    <script>
+        function calculate() {
+            // 读取输入
+            const rent = parseFloat(document.getElementById('rent').value) || 0;
+            const wages = parseFloat(document.getElementById('wages').value) || 0;
+            const utilities = parseFloat(document.getElementById('utilities').value) || 0;
+            const xiLiPurchase = parseFloat(document.getElementById('xiLiPurchase').value) || 0;
+            const xiLiSell = parseFloat(document.getElementById('xiLiSell').value) || 0;
+            const baiWeiPurchase = parseFloat(document.getElementById('baiWeiPurchase').value) || 0;
+            const baiWeiSell = parseFloat(document.getElementById('baiWeiSell').value) || 0;
+            const keLuoNaPurchase = parseFloat(document.getElementById('keLuoNaPurchase').value) || 0;
+            const keLuoNaSell = parseFloat(document.getElementById('keLuoNaSell').value) || 0;
+            const wuSuPurchase = parseFloat(document.getElementById('wuSuPurchase').value) || 0;
+            const wuSuSell = parseFloat(document.getElementById('wuSuSell').value) || 0;
+            const xueJinPurchase = parseFloat(document.getElementById('xueJinPurchase').value) || 0;
+            const xueJinSell = parseFloat(document.getElementById('xueJinSell').value) || 0;
+            const drinkPurchase = parseFloat(document.getElementById('drinkPurchase').value) || 0;
+            const drinkSell = parseFloat(document.getElementById('drinkSell').value) || 0;
+
+            // 计算总成本
+            const totalCost = rent + wages + utilities;
+            document.getElementById('totalCost').textContent = totalCost.toFixed(2);
+
+            // 计算各项利润
+            const xiLiProfit = xiLiSell - xiLiPurchase;
+            const baiWeiProfit = baiWeiSell - baiWeiPurchase;
+            const keLuoNaProfit = keLuoNaSell - keLuoNaPurchase;
+            const wuSuProfit = wuSuSell - wuSuPurchase;
+            const xueJinProfit = xueJinSell - xueJinPurchase;
+            const drinkProfit = drinkSell - drinkPurchase;
+
+            document.getElementById('xiLiProfit').textContent = xiLiProfit.toFixed(2);
+            document.getElementById('baiWeiProfit').textContent = baiWeiProfit.toFixed(2);
+            document.getElementById('keLuoNaProfit').textContent = keLuoNaProfit.toFixed(2);
+            document.getElementById('wuSuProfit').textContent = wuSuProfit.toFixed(2);
+            document.getElementById('xueJinProfit').textContent = xueJinProfit.toFixed(2);
+            document.getElementById('drinkProfit').textContent = drinkProfit.toFixed(2);
+
+            // 计算总利润
+            const totalProfit = xiLiProfit + baiWeiProfit + keLuoNaProfit + wuSuProfit + xueJinProfit + drinkProfit;
+            document.getElementById('totalProfit').textContent = totalProfit.toFixed(2);
+
+            // 计算每月利润
+            const monthlyProfit = totalProfit * 0.96 - totalCost;
+
+            // 计算回本周期
+            const principal = 2600000;
+            const paybackMonths = principal / monthlyProfit;
+
+            // 显示结果
+            const res = document.getElementById('result');
+            res.innerHTML = `
+                <p>每月成本：<span class="highlight">${totalCost.toFixed(2)}</span> 元</p>
+                <p>总利润：<span class="highlight">${totalProfit.toFixed(2)}</span> 元</p>
+                <p>每月利润：<span class="highlight">${monthlyProfit.toFixed(2)}</span> 元</p>
+                <p>回本周期：<span class="highlight">${paybackMonths.toFixed(1)}</span> 个月</p>
+            `;
+        }
+    </script>
+</body>
+</html>
